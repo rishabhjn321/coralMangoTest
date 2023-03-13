@@ -6,13 +6,15 @@ import { LayoutProps } from '../../context/loginContext';
 type initialStateT = {
   loading?: boolean;
   page?: number;
-  isAddLoading?: boolean;
+  totalData?: any;
+  totalMember?: number;
 };
 
 const initialState: initialStateT = {
   page: 1,
   loading: false,
-  isAddLoading: false,
+  totalData: [],
+  totalMember: 0,
 };
 
 export const DashboardContext = createContext<{
@@ -31,12 +33,15 @@ const contextreducer = (state: typeof initialState, action: any): typeof initial
       return { ...state, loading: true };
     case 'FAILURE':
       return { ...state, loading: false };
-    case 'ADD_LOADING':
-      return { ...state, isAddLoading: true };
-    case 'ADD_SUCCESS':
-      return { ...state, isAddLoading: false };
-    case 'ADD_FAILURE':
-      return { ...state, isAddLoading: false };
+
+    case 'SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        totalData: action?.data,
+        totalMember: action?.data?.length,
+      };
+
     default:
       return initialState;
   }
@@ -45,22 +50,20 @@ const contextreducer = (state: typeof initialState, action: any): typeof initial
 const DashboardContentProvider: React.FC = ({ children }: LayoutProps) => {
   const [state, dispatch] = useReducer(contextreducer, initialState);
 
-  const getTotalCount = useCallback(async (token?: string) => {
+  const getTotalCount = useCallback(async () => {
     dispatch({ type: 'LOADING' });
-    if (token) {
-      try {
-        const response = await fetch(`https://coralmango.com/api/react-test`, {
-          method: 'GET',
-          headers: new Headers({
-            Authorization: `Bearer ${token}`,
-          }),
-        });
-        const res = await response.json();
-        const resData = res?.data;
-        dispatch({ type: 'TOTAL_SUCCESS', data: resData });
-      } catch (error) {
-        console.log(error);
-      }
+    try {
+      const response = await fetch(`https://coralmango.com/api/react-test`, {
+        method: 'GET',
+        headers: new Headers({
+          // Authorization: `Bearer ${token}`,
+        }),
+      });
+      const res = await response.json();
+
+      dispatch({ type: 'SUCCESS', data: res });
+    } catch (error) {
+      console.log(error);
     }
   }, []);
 

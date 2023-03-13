@@ -2,10 +2,7 @@ import { LocaleString } from '../../atoms/locales';
 import { Text } from '../../atoms/Text';
 import { InputField } from '../../atoms/InputField';
 import { FormikError } from '../../atoms/Error';
-import InputTimeField from '../../atoms/InputTimeField';
-import InputDateField from '../../atoms/InputDateField';
 import InputCheckbox from '../../atoms/InputCheckbox/InputCheckbox';
-import InputTextArea from '../../atoms/InputTextArea';
 import { useField } from 'formik';
 
 export interface IProps {
@@ -58,33 +55,7 @@ export const FormikInput = ({ ...props }: IProps) => {
   );
 };
 
-export const FormikTextArea = ({ ...props }: IProps) => {
-  const [field, meta] = useField(props.name);
-  const { touched, error } = { ...meta };
-  return (
-    <div className="w-full">
-      {props.label && (
-        <label htmlFor={props.name} className="block text-sm font-medium text-gray-700">
-          <div className="flex">
-            <Text id={props.label} />
-            {props?.required && <span className="text-red-600">*</span>}
-          </div>
-        </label>
-      )}
-      <div className="mt-1 relative">
-        <InputTextArea
-          touched={touched}
-          error={error}
-          {...field}
-          {...props}
-          validation={props.validation}
-        />
-      </div>
 
-      <FormikError name={props?.name} />
-    </div>
-  );
-};
 
 export const FormikCheckbox = ({ ...props }: IProps) => {
   const [field, meta] = useField(props.name);
@@ -103,69 +74,5 @@ export const FormikCheckbox = ({ ...props }: IProps) => {
       </div>
       {!props.noError && <FormikError name={props?.name} />}
     </div>
-  );
-};
-
-interface FormikInputDateFieldProps {
-  name: string;
-  type?: string;
-  placeholder?: string;
-  label?: LocaleString;
-  disabled?: boolean;
-  validation?: boolean;
-  minDate?: Date;
-  maxDate?: Date;
-}
-export const FormikInputDateField = ({ ...props }: FormikInputDateFieldProps) => {
-  const [field, meta] = useField(props.name);
-  const { touched, error } = { ...meta };
-  return (
-    <>
-      <div className="w-full">
-        {props.label && (
-          <label htmlFor={props.name} className="block text-sm font-medium text-primary mb-2">
-            <Text id={props.label} />
-          </label>
-        )}
-        <div className="mt-1 relative">
-          <InputDateField
-            touched={touched}
-            error={error}
-            {...field}
-            {...props}
-            validation={props.validation}
-          />
-        </div>
-
-        <FormikError name={props?.name} />
-      </div>
-    </>
-  );
-};
-
-interface FormikInputTimeFieldProps {
-  name: string;
-  label?: LocaleString;
-  disabled?: boolean;
-  // format?: '12' | '24';
-}
-
-export const FormikInputTimeField = ({ ...props }: FormikInputTimeFieldProps) => {
-  const [field, meta] = useField(props.name);
-  const { touched, error } = { ...meta };
-  return (
-    <>
-      <div className="w-full">
-        {props.label && (
-          <label htmlFor={props.name} className="block text-sm font-medium text-primary mb-2">
-            <Text id={props.label} />
-          </label>
-        )}
-        <div className="mt-1 relative">
-          <InputTimeField touched={touched} error={error} {...field} {...props} />
-        </div>
-        <FormikError name={props?.name} />
-      </div>
-    </>
   );
 };

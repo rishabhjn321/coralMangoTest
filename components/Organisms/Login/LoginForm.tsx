@@ -1,21 +1,17 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import FormikInput, { FormikCheckbox } from '../../molecules/FormikInput';
-import { validateEmail, validatePassword } from '../../validators';
+import { validateEmail } from '../../validators';
 import { Button } from '../../atoms/Button';
-// import { AppContext } from '../../context/loginContext';
 import { Text } from '../../atoms/Text';
-// import { loginRoleContext } from '../../context/roleContext';
-// import { en } from '../../atoms/locales/en';
 
 const LoginFormValidationSchema = yup.object().shape({
   email: validateEmail(),
   // password: validatePassword(),
 });
 function LoginForm() {
-  // const { roleState, dispatch } = useContext(loginRoleContext);
   const [initialValues, setInitialValues] = useState({
     email: '',
     password: '',
@@ -36,39 +32,18 @@ function LoginForm() {
       });
     }
   }, []);
-  // const {
-  //   action: { login },
-  //   // state,
-  // } = useContext(AppContext);
 
-  const onSubmitHandler = useCallback(
-    (values: any) => {
-      // login(values);
-      if(values?.email === "demo@coralmango.com" && values?.password === "demo123"){
-        localStorage.setItem('Username', values?.email);
-        localStorage.setItem('password', values?.password);
-        router?.push('/admin/dashboard');
-      }
-      else{
-        router?.push('/')
-      }
-    },
-    [],
-  );
-  // const onSubmitHandler = useCallback(
-  //   (values: any) => {
-  //     login(values);
-  //   },
-  //   [login],
-  // );
-
-  // useEffect(() => {
-  //   // if (state.isAuthenticated) {
-  //     // if (state.role == 'admin') {
-  //       router.push('/admin/dashboard');
-  //     // }
-  //   // }
-  // }, [state, router]);
+  const onSubmitHandler = useCallback((values: any) => {
+    // login(values);
+    if (values?.email === 'demo@coralmango.com' && values?.password === 'demo123') {
+      localStorage.setItem('Username', values?.email);
+      localStorage.setItem('password', values?.password);
+      router?.push('/admin/dashboard');
+    } else {
+      router?.push('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

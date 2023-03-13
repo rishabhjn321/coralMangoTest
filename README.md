@@ -43,3 +43,24 @@ from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more
 details.
+
+
+## File Details
+
+In file name LoginForm you can check complete code for working of login page
+
+In file name DashboardContent you can check code for complete working fo dashboard design in whcih different action are performed like api calling using of hooks and uni-directional data flow from parent class to child class can been seen
+
+In file name MemberListing is child component for DashboardContent in which complete layout of table is there , I have  a seperate file for this because as this file  can be resued anywhere else and with the help of props different data can be render in the table.  
+
+In file name DashboardContentProvider you can see complete working of api calling in which i have used redux and fetch for caaling api and also as this project is with typescript i have give coming data a type also
+
+In file name type i have given all the types for the data which is coming from api.
+
+In file test1 it has the complete answere for Section-3 ES6 Basics test and to check its output you can click on it and a toster will appear and you can check it on console or by by simply pressing Ctrl + Shift + i 
+
+In file test2 it has the complete answere for Section-3 ES6 Basics test-2 and to check its output you can click on it and a toster will appear and you can check it on console or by by simply pressing Ctrl + Shift + i 
+
+In file test1 it has the complete answere for Section-3 ES6 Basics test-3 and to check its output you can click on it and a toster will appear and you can check it on console or by by simply pressing Ctrl + Shift + i 
+
+In file en i have stored some text just because in case i have to change language from english to some aonther language than it can be easy to change just one file where all text are there.
